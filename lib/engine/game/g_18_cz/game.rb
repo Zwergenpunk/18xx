@@ -21,9 +21,9 @@ module Engine
 
         BANK_CASH = 99_999
 
-        CERT_LIMIT = { 3 => 14, 4 => 12, 5 => 10, 6 => 9 }.freeze
+        CERT_LIMIT = { 2 => 14, 3 => 14, 4 => 12, 5 => 10, 6 => 9 }.freeze
 
-        STARTING_CASH = { 3 => 380, 4 => 300, 5 => 250, 6 => 210 }.freeze
+        STARTING_CASH = { 2 => 280, 3 => 380, 4 => 300, 5 => 250, 6 => 210 }.freeze
 
         CAPITALIZATION = :full
 
@@ -2488,6 +2488,13 @@ module Engine
           '8E' => :large,
         }.freeze
 
+        TWO_PLAYER_CORP_TO_REMOVE = %w[OFE KFN PR Ug].freeze
+        TWO_PLAYER_COMPANIES_TO_REMOVE = {
+          5 => 40,
+          10 => 55,
+          20 => 70,
+        }.freeze
+
         include StubsAreRestricted
         attr_accessor :rusted_variants
 
@@ -2499,11 +2506,20 @@ module Engine
           @entity_used_ability_to_track = false
           @rusted_variants = []
 
+          unless multiplayer?
+            @corporations = @corporations.reject { |item| TWO_PLAYER_CORP_TO_REMOVE.include?(item.name) }
+            @companies = @companies.reject { |item| item.value >= TWO_PLAYER_COMPANIES_TO_REMOVE[item.revenue] }
+          end
+
           # Only small companies are available until later phases
           @corporations, @future_corporations = @corporations.partition { |corporation| corporation.type == :small }
 
           block_lay_for_purple_tiles
           init_player_debts
+        end
+
+        def multiplayer?
+          @multiplayer ||= @players.size >= 3
         end
 
         def init_round
