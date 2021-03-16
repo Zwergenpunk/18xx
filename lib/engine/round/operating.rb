@@ -68,6 +68,7 @@ module Engine
 
       def start_operating
         entity = @entities[@entity_index]
+        puts entity.name
         @current_operator = entity
         @current_operator_acted = false
         entity.trains.each { |train| train.operated = false }

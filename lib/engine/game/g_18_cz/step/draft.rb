@@ -37,6 +37,10 @@ module Engine
             true
           end
 
+          def override_entities
+            @round.entities.reject { |item| item == @game.vraclav }
+          end
+
           def tiered_auction_companies
             @companies.group_by(&:revenue).values
           end

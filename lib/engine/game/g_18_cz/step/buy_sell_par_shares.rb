@@ -49,6 +49,10 @@ module Engine
           def item_str(item)
             "#{item.description} (#{@game.format_currency(item.cost)})"
           end
+
+          def override_entities
+            @round.entities.reject { |item| item == @game.vraclav }
+          end
         end
       end
     end
