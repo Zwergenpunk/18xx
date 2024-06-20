@@ -163,7 +163,32 @@ module Engine
         }.freeze
 
         LOCATION_NAMES_EAST = {
-          'B12' => 'Xuzhou',
+          'A9' => 'Zhengzhou',
+          'B2' => 'Song Shan',
+          'B12' => 'Xuzho',
+          'C3' => 'Xi´an',
+          'C5' => 'Nanyang',
+          'C17' => 'Yangcheng',
+          'D8' => 'Xingyang',
+          'D12' => 'Bengbu & Hefei',
+          'D16' => 'Yanghzhou & Zhenjiang',
+          'E15' => 'Nanjing',
+          'E17' => 'Changzhou & Wuxi',
+          'E19' => 'Nantong',
+          'F4' => 'Yichang & Jingzhou',
+          'F8' => 'Wuhan',
+          'F18' => 'Suzhou',
+          'F20' => 'Shanghai',
+          'G1' => 'Chongqing',
+          'G5' => 'Yueyang',
+          'G11' => 'Jiujang',
+          'G17' => 'Hangzhou',
+          'G19' => 'Ningbo',
+          'H10' => 'Nanchang',
+          'H12' => 'Jingdezhen',
+          'H16' => 'Jinhua',
+          'I5' => 'Changsha',
+          'I19' => 'Wenzhou',
         }.freeze
 
         # rubocop:disable Layout/LineLength
