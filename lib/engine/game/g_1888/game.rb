@@ -194,6 +194,7 @@ module Engine
         TERRACOTTA_TILE = 'L39'
 
         BEIJING_HEX = 'C9'
+        HANGZHOU_HEX = 'C9'
 
         MUST_BID_INCREMENT_MULTIPLE = false
         ONLY_HIGHEST_BID_COMMITTED = false
@@ -293,7 +294,12 @@ module Engine
         end
 
         def exchange_corporations(_exchange_ability)
-          candidates = hex_by_id(BEIJING_HEX).tile.cities.flat_map(&:tokens).compact.map { |t| t&.corporation }
+          hex = if @optional_rules.include?(:east)
+                  HANGZHOU_HEX
+                else
+                  BEIJING_HEX
+                end
+          candidates = hex_by_id(hex).tile.cities.flat_map(&:tokens).compact.map { |t| t&.corporation }
           candidates.reject(&:closed?)
         end
 

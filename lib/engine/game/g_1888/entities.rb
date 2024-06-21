@@ -106,11 +106,57 @@ module Engine
 
         COMPANIES_EAST = [
           {
-            name: 'Kaiping Tramway',
+            name: 'Woosung Road',
             value: 25,
             revenue: 5,
             desc: 'No special ability',
-            sym: 'KT',
+            sym: 'WR',
+          },
+          {
+            name: 'Yueyang Tower',
+            value: 50,
+            revenue: 10,
+            desc: 'A company owning this private may lay a yellow tile on hex G5 (city of Yueyang) in addition to its normal tile lay step. No connection is required. This does not close the company',
+            sym: 'YT',
+            abilities: [{
+              type: 'tile_lay',
+              when: 'owning_corp_or_turn',
+              owner_type: 'corporation',
+              special: false,
+              connected: false,
+              hexes: ['G5'],
+              tiles: %w[5 6 57],
+            }],
+          },
+          {
+            name: 'Belgium Investors',
+            value: 125,
+            revenue: 25,
+            desc: 'Owning corporation may lay an additional yellow tile each OR north of the Yangtze river according to the normal track tile laying rules.',
+            sym: 'BI',
+            abilities: [{
+              type: 'tile_lay',
+              when: 'owning_corp_or_turn',
+              owner_type: 'corporation',
+              special: false,
+              reachable: true,
+              hexes: %w[B4 B6 B8 B10 B12 B14 B16 B18 C5 C7 C9 C11 C13 C15 C17 C19 D4 D6 D8 D10 D14 D16 D18 E3 E5 E7 E9 E11 E13 F6 F10 F12],
+              tiles: %w[1 2 3 4 5 6 7 8 9 55 56 57 58 69],
+            }],
+          },
+          {
+            name: 'Hangzhou West Lake',
+            value: 150,
+            revenue: 30,
+            desc: 'A player owning this private company may exchange it into an IPO share of a company with a token in Hangzhou (at the time of exchange). If sold to a company this ability is lost.',
+            sym: 'HWL',
+            abilities: [{
+              type: 'exchange',
+              owner_type: 'player',
+              corporations: 'any',
+              from: 'ipo',
+            }],
+            color: nil,
           },
         ].freeze
         # rubocop:enable Layout/LineLength
