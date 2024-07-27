@@ -138,14 +138,14 @@ module Engine
         ].freeze
 
         DESTINATION_HEX_NORTH = {
-          'JHR' => 'D12',
-          'SSL' => 'C13',
-          'CDL' => 'E17',
-          'HJR' => 'G9',
-          'TJL' => 'H4',
-          'LYR' => 'H14',
-          'JZR' => 'B6',
-          'ZDR' => 'F12',
+          'JHR' => ['D12'],
+          'SSL' => ['C13'],
+          'CDL' => ['E17'],
+          'HJR' => ['G9'],
+          'TJL' => ['H4'],
+          'LYR' => ['H14'],
+          'JZR' => ['B6'],
+          'ZDR' => ['F12'],
         }.freeze
 
         DESTINATION_HEX_EAST = {
@@ -324,14 +324,14 @@ module Engine
 
         def revenue_str(route)
           corp = route.train.owner
-          destination_count = destination_hex[corp.name].sum { |hex| destinated?(corp, route.stops, hex) ? 1 : 0 }
+          destination_count = destination_hex[corp.name].count { |hex| destinated?(corp, route.stops, hex) }
           bonus = destination_count.positive? ? " (#{destination_count} dest)" : ''
           super + bonus
         end
 
         def destination_str(corp)
           hexes = destination_hex[corp.name].map { |hex| "#{location_name(hex)} (#{hex})" }
-          "#{hexes} #{destination_bonus[corp.name]}"
+          "#{hexes} +#{destination_bonus[corp.name]}"
         end
 
         def status_array(corp)
